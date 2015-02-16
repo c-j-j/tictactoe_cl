@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+$:<< File.join(File.dirname(__FILE__), '../lib')
+require 'command_line_interface'
+
+TTT::CommandLineInterface.new.show
