@@ -1,5 +1,4 @@
 require 'tictactoe'
-require 'tictactoe_test'
 require 'command_line_interface.rb'
 require 'ostruct'
 

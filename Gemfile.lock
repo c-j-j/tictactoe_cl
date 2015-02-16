@@ -1,9 +1,4 @@
 PATH
-  remote: ../tictactoe_test
-  specs:
-    tictactoe_test (0.1)
-
-PATH
   remote: /Users/chrisjordan/ruby_projects/tictactoe/tictactoe_game
   specs:
     tictactoe (0.1)
@@ -32,4 +27,3 @@ PLATFORMS
 DEPENDENCIES
   rspec
   tictactoe!
-  tictactoe_test!
