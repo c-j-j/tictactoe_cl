@@ -1,7 +1,7 @@
 PATH
-  remote: /Users/chrisjordan/ruby_projects/tictactoe/tictactoe_game
+  remote: ../tictactoe_game
   specs:
-    tictactoe (0.0.1)
+    tictactoe (1.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -26,4 +26,4 @@ PLATFORMS
 
 DEPENDENCIES
   rspec
-  tictactoe!
+  tictactoe (= 1.0.1)!

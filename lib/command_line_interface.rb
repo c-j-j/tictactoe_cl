@@ -22,14 +22,18 @@ module TTT
     def play_game(game)
       until game.game_over?
         print_update(game.presenter)
-        if game.presenter.computer_has_next_turn?
-          game.play_turn
-        else
-          game.play_turn(get_user_move(game.presenter.board))
-        end
+        process_next_turn(game)
       end
 
       print_update(game.presenter)
+    end
+
+    def process_next_turn(game)
+      if game.presenter.computer_has_next_turn?
+        game.play_turn
+      else
+        game.play_turn(get_user_move(game.presenter.board))
+      end
     end
 
     def get_user_move(board)
@@ -40,7 +44,7 @@ module TTT
     def prepare_game
       game_type = get_game_type(Game::GAME_TYPES)
       board_size = get_board_size(*Game::BOARD_SIZES)
-      @game = TTT::Game.build_game(self, game_type, board_size)
+      @game = TTT::Game.build_game(game_type, board_size)
     end
 
 
