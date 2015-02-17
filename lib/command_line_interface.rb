@@ -22,7 +22,11 @@ module TTT
     def play_game(game)
       until game.game_over?
         print_update(game.presenter)
-        game.play_turn
+        if game.presenter.computer_has_next_turn?
+          game.play_turn
+        else
+          game.play_turn(get_user_move(game.presenter.board))
+        end
       end
 
       print_update(game.presenter)
