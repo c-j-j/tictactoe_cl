@@ -3,4 +3,4 @@
 $:<< File.join(File.dirname(__FILE__), '../lib')
 require 'command_line_interface'
 
-TTT::CommandLineInterface.new.show
+TicTacToe::CommandLineInterface.new.show
