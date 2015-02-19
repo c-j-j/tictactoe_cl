@@ -2,16 +2,16 @@ require 'tictactoe/board'
 require 'tictactoe/helpers/board_helper'
 require 'tictactoe/stubs/stub_player'
 require 'tictactoe/stubs/stub_game'
-require 'command_line_interface.rb'
+require 'tictactoe/ui/command_line_interface.rb'
 
-describe TicTacToe::CommandLineInterface do
+describe TicTacToe::UI::CommandLineInterface do
 
   let(:board) { TicTacToe::Board.new(3) }
   let(:board_helper) { TicTacToe::BoardHelper.new }
   let(:stub_game) {TicTacToe::StubGame.new }
   let(:input) { StringIO.new }
   let(:output) { StringIO.new }
-  let(:user_interface) { TicTacToe::CommandLineInterface.new(input, output) }
+  let(:user_interface) { TicTacToe::UI::CommandLineInterface.new(input, output) }
   let(:game_presenter) { TicTacToe::GamePresenter::Builder.new
     .with_board(board).build }
 
@@ -26,7 +26,7 @@ describe TicTacToe::CommandLineInterface do
 
   it 'prints invalid message' do
     user_interface.print_invalid_message
-    expect(output.string).to include(TicTacToe::CommandLineInterface::INVALID_MOVE_MESSAGE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::INVALID_INPUT_MESSAGE)
   end
 
   it 'user_interfaces prompt to pick game type' do
@@ -35,7 +35,7 @@ describe TicTacToe::CommandLineInterface do
     user_interface.get_game_type({
       :GameType => game_type_description
     })
-    expect(output.string).to include(TicTacToe::CommandLineInterface::PICK_GAME_TYPE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::PICK_GAME_TYPE)
     expect(output.string).to include(game_type_description)
   end
 
@@ -54,13 +54,13 @@ describe TicTacToe::CommandLineInterface do
 
     user_input('a', '0', '1')
     user_interface.get_game_type(game_choices)
-    expect(output.string).to include(TicTacToe::CommandLineInterface::INVALID_MOVE_MESSAGE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::INVALID_INPUT_MESSAGE)
   end
 
   it 'prompts user to specify board size' do
     user_input('3')
     user_interface.get_board_size(3)
-    expect(output.string).to include(TicTacToe::CommandLineInterface::PICK_BOARD_SIZE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::PICK_BOARD_SIZE)
     expect(output.string).to include('3')
   end
 
@@ -72,19 +72,19 @@ describe TicTacToe::CommandLineInterface do
   it 'invalidates user input for board size if non-integer provided' do
     user_input('a', '3')
     expect(user_interface.get_board_size(3, 4)).to eq(3)
-    expect(output.string).to include(TicTacToe::CommandLineInterface::INVALID_MOVE_MESSAGE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::INVALID_INPUT_MESSAGE)
   end
 
   it 'invalidates user input if board size provided not in list of options' do
     user_input('5', '4')
     expect(user_interface.get_board_size(3, 4)).to eq(4)
-    expect(output.string).to include(TicTacToe::CommandLineInterface::INVALID_MOVE_MESSAGE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::INVALID_INPUT_MESSAGE)
   end
 
   it 'requests board size when prepare_game is called' do
     user_input('1', '3')
     user_interface.prepare_game
-    expect(output.string).to include(TicTacToe::CommandLineInterface::PICK_BOARD_SIZE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::PICK_BOARD_SIZE)
   end
 
   it 'user_interfaces board sizes retrieved from game object' do
@@ -98,7 +98,7 @@ describe TicTacToe::CommandLineInterface do
   it 'requests game type when prepare_game is called' do
     user_input('1', '3')
     user_interface.prepare_game
-    expect(output.string).to include(TicTacToe::CommandLineInterface::PICK_GAME_TYPE)
+    expect(output.string).to include(TicTacToe::UI::CommandLineInterface::PICK_GAME_TYPE)
   end
 
   it 'user_interfaces game types retreived from game object' do

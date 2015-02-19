@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 $:<< File.join(File.dirname(__FILE__), '../lib')
-require 'command_line_interface'
+require 'tictactoe/ui/command_line_interface'
 
 TicTacToe::CommandLineInterface.new.show

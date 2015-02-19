@@ -1,14 +1,14 @@
 require 'tictactoe/board'
 require 'tictactoe/helpers/board_helper'
-require 'command_line_human_player'
+require 'tictactoe/ui/command_line_human_player'
 
-describe TicTacToe::CommandLineHumanPlayer do
+describe TicTacToe::UI::CommandLineHumanPlayer do
 
   let(:board) { TicTacToe::Board.new(3) }
   let(:input) { StringIO.new }
   let(:output) { StringIO.new }
   let(:board_helper) { TicTacToe::BoardHelper.new }
-  let(:player) { TicTacToe::CommandLineHumanPlayer.new('X', input, output) }
+  let(:player) { TicTacToe::UI::CommandLineHumanPlayer.new('X', input, output) }
 
   it 'gets move from user and decrements' do
     input.string = "1\n"
@@ -25,7 +25,7 @@ describe TicTacToe::CommandLineHumanPlayer do
   end
 
   it 'builds command line human player with factory' do
-    factory = TicTacToe::CommandLineHumanPlayer::Factory.new
+    factory = TicTacToe::UI::CommandLineHumanPlayer::Factory.new
     player = factory.build_with_mark('X')
     expect(player.mark).to eq('X')
   end
