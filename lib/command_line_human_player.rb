@@ -1,10 +1,10 @@
-require 'command_line_utils'
+require 'command_line_io'
 
 module TicTacToe
   class CommandLineHumanPlayer
-    include CommandLineUtils
+    include CommandLineIO
 
-    attr_reader :input, :mark
+    attr_reader :input, :output, :mark
 
     def initialize(mark, input=$stdin, output=$stdout)
       @mark = mark
@@ -19,6 +19,14 @@ module TicTacToe
 
     def move_valid?(move, board)
       is_integer?(move) && board.is_move_valid?(transform_input_to_zero_based_integer(move))
+    end
+
+    def transform_input_to_zero_based_integer(move)
+      move.to_i - 1
+    end
+
+    def is_integer?(string)
+      string.to_i.to_s == string
     end
 
     class Factory

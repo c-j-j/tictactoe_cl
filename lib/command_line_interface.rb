@@ -1,10 +1,10 @@
 require 'tictactoe/game'
 require 'command_line_human_player'
-require 'command_line_utils'
+require 'command_line_io'
 
 module TicTacToe
   class CommandLineInterface
-    include CommandLineUtils
+    include CommandLineIO
 
     attr_reader :game, :input, :output
     PICK_GAME_TYPE = "Pick Game Type?"
@@ -51,18 +51,18 @@ module TicTacToe
         end
         output << "\n"
       end
-      @output.puts output
+      print_message(output)
     end
 
     def get_board_size(*board_size_options)
-      @output.puts PICK_BOARD_SIZE
+      print_message(PICK_BOARD_SIZE)
       print_board_size_options(board_size_options)
       board_size = get_validated_user_input {|input| board_size_valid?(input, board_size_options)}
       board_size.to_i
     end
 
     def get_game_type(game_choices)
-      @output.puts PICK_GAME_TYPE
+      print_message(PICK_GAME_TYPE)
       print_game_choices(game_choices)
       game_type = get_validated_user_input {|input| game_type_valid?(input, game_choices)}
       game_choices[transform_input_to_zero_based_integer(game_type)]
@@ -72,11 +72,7 @@ module TicTacToe
 
     def print_update(game_presenter)
       print_board(game_presenter.board)
-      print_status(game_presenter.status)
-    end
-
-    def print_status(status)
-      @output.puts status
+      print_message(game_presenter.status)
     end
 
     def board_size_valid?(board_size, board_size_options)
@@ -85,18 +81,26 @@ module TicTacToe
 
     def print_game_choices(game_choices)
       game_choices.each_with_index do |game_choice, index|
-        @output.puts "#{index + 1}: #{game_choice}\n"
+        print_message("#{index + 1}: #{game_choice}")
       end
     end
 
     def print_board_size_options(board_size_options)
       board_size_options.each do |option|
-        @output.puts "#{option}, "
+        print_message("#{option}, ")
       end
     end
 
     def print_mark(output, mark)
       output << " #{mark} "
+    end
+
+    def transform_input_to_zero_based_integer(move)
+      move.to_i - 1
+    end
+
+    def is_integer?(string)
+      string.to_i.to_s == string
     end
 
     def game_type_valid?(game_type, game_choices)
