@@ -41,7 +41,7 @@ module TicTacToe
         output = ""
         index = 1
 
-        game_presenter.board_positions.each_slice(game_presenter.row_size).to_a.each do |row|
+        game_presenter.board_as_array.each_slice(game_presenter.row_size).to_a.each do |row|
           row.each do |mark|
             unless mark.nil?
               print_mark(output, mark)
