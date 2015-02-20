@@ -13,7 +13,7 @@ describe TicTacToe::UI::CommandLineInterface do
   let(:output) { StringIO.new }
   let(:user_interface) { TicTacToe::UI::CommandLineInterface.new(input, output) }
   let(:game_presenter) { TicTacToe::GamePresenter::Builder.new
-    .with_board(board).with_row_size(3).build }
+    .with_board(board).build }
 
   it 'prints empty board with numbers' do
     user_interface.print_board(game_presenter)
