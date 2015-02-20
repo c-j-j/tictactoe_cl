@@ -13,10 +13,10 @@ describe TicTacToe::UI::CommandLineInterface do
   let(:output) { StringIO.new }
   let(:user_interface) { TicTacToe::UI::CommandLineInterface.new(input, output) }
   let(:game_presenter) { TicTacToe::GamePresenter::Builder.new
-    .with_board(board).build }
+    .with_board(board).with_row_size(3).build }
 
   it 'prints empty board with numbers' do
-    user_interface.print_board(board)
+    user_interface.print_board(game_presenter)
     rows = output.string.lines
 
     expect(rows[0]).to include("1  2  3")

@@ -37,11 +37,11 @@ module TicTacToe
         print_update(game.presenter)
       end
 
-      def print_board(board)
+      def print_board(game_presenter)
         output = ""
         index = 1
 
-        board.rows.each_with_index do |row|
+        game_presenter.board_positions.each_slice(game_presenter.row_size).to_a.each do |row|
           row.each do |mark|
             unless mark.nil?
               print_mark(output, mark)
@@ -72,7 +72,7 @@ module TicTacToe
       private
 
       def print_update(game_presenter)
-        print_board(game_presenter.board)
+        print_board(game_presenter)
         print_message(game_presenter.status)
       end
 
